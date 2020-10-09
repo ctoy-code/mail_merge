@@ -1,0 +1,46 @@
+function myFunction() {
+
+  var docTemplateId = "1DxSOKitgHQRvPLb_6bEm-xoyZSn2sgVxlKIeApLH4PI";
+  var docFinalId = "1XjAv5ILClMQPjiOHyZ8htfGhrEWBBw6U4K6TdPsPR5Y";
+  var wsId = "1Ol7n4vKmNspXHdz9gN4iTt3h73qdEuInZzPL7RYHR0k";
+  
+  var docTemplate = DocumentApp.openById(docTemplateId);
+  var docFinal = DocumentApp.openById(docFinalId);
+  var ws = SpreadsheetApp.openById(wsId).getSheetByName("data");
+
+  var data = ws.getRange(2,1,ws.getLastRow()-1,10).getValues();
+
+  var templateParagraphs = docTemplate.getBody().getParagraphs();
+
+docFinal.getBody().clear();
+
+data.forEach(function(r){ 
+  
+createMailMerge(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],templateParagraphs, docFinal);
+
+});
+
+} 
+                            
+function createMailMerge(issueDate,buyerName,VIN,make,model,color,pickupAddress,pickupPOC,pickupPhone,pickupPOCemail,templateParagraphs,docFinal){
+
+ templateParagraphs.forEach(function(p) {
+docFinal.getBody().appendParagraph(p.copy()
+.replaceText("{issueDate}",issueDate)
+.replaceText("{buyerName}",buyerName)
+.replaceText("{VIN}",VIN)
+.replaceText("{Make}",make)
+.replaceText("{Model}",model)   
+.replaceText("{Color}",color)                            
+.replaceText("{pickupAddress}",pickupAddress)
+.replaceText("{pickupPOC}",pickupPOC)
+.replaceText("{pickupPhone}",pickupPhone)
+.replaceText("{pickupPOCemail}",pickupPOCemail)
+);
+                             
+  }
+);
+
+docFinal.getBody().appendPageBreak();
+  
+}
