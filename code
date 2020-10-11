@@ -1,3 +1,5 @@
+// Automates the manual aspects of creating gate passes through a mail merge. Improves data integrity and saves a significant amount of time.
+
 function myFunction() {
 
   var docTemplateId = "1DxSOKitgHQRvPLb_6bEm-xoyZSn2sgVxlKIeApLH4PI";
